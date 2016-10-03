@@ -1,12 +1,41 @@
+body {
+	background-color: Aliceblue;
+}
+
+#container {
+	text-align: center;
+}
+
+h1 {
+
+ text-align: center;
+ font-size: 350%
+}
+
 #timer {
   font-size: 1800%;
+  text-align: center;
 }
 
 #start {
-  font-size: 750%;
+  font-size: 350%;
+
 }
 
 #break {
-  font-size: 750%;
+  font-size: 350%;
   display: none;
+}
+
+#reset {
+	font-size:350%;
+}
+
+#stop {
+	font-size:350%;
+}
+
+#stop {
+	font-size:350%;
+
 }

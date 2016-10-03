@@ -6,26 +6,45 @@
   var breakButton = $('#break');
   var isOnBreak = false;
   var timerInterval;
-  //main functionality
+  var resetButton = $('#reset');
+  var stopButton = $('#stop');
+  // main functionality
   startButton.on('click', startTimer);
   breakButton.on('click', startBreak);
+  resetButton.on('click', resetTimer);
+  stopButton.on('click', stopTimer);
   //function definitions
+  function resetTimer(){
+    clearInterval(timerInterval); //this will stop the timer
+    timerInterval = null;
+    minutes.text('25');
+    // set the seconds to 0 seconds
+    seconds.text('00');
+    isOnBreak = false;
+    startButton.attr("disabled", false);
+  }
+
   function startBreak(){
-    //set that we are on break
+    //set that we are on a break
     isOnBreak = true;
     //set the minutes to 5 minutes
     minutes.text('05');
-    //set the seconds to 0 seconds
+    // set the seconds to 0 seconds
     seconds.text('00');
-    //hide the break button
+    // hide the break button
     breakButton.hide();
-    //start the timer
+    // start the timer
     startTimer();
+  }
+
+  function stopTimer(){
+    clearInterval(timerInterval); //this will stop the timer
+    timerInterval = null;
   }
 
   function startTimer(){
     if(!timerInterval){
-      timerInterval = setInterval(countdown, 1000);
+        timerInterval = setInterval(countdown, 1000);
     }
   }
   function countdown(){
@@ -33,23 +52,23 @@
     var secondsTextAsNumber = parseInt(secondsText);
     var minutesText = minutes.text();
     var minutesTextAsNumber = parseInt(minutesText);
-    //console.log(typeof secondsText);
-    //console.log(typeof secondsTextAsNumber);
+    // console.log(typeof secondsText);
+    // console.log(typeof secondsTextAsNumber);
     if(minutesTextAsNumber === 0 && secondsTextAsNumber === 0){
-      //stop
-      clearInterval(timerInterval);
+      //stop!
       timerInterval = null;
+      clearInterval(timerInterval); //this will stop the timer
       if(!isOnBreak){
-          //disable the start button
-          startButton.attr('disabled', true);
-          // unhide the break button
-          breakButton.show();
-    } else {
-      seconds.text('00');
-      minutes.text('25');
-      startButton.attr('disabled', false);
-      isOnBreak = false;
-    }
+        //disable the start button
+        startButton.attr('disabled', true);
+        // unhide the break button
+        breakButton.show();
+      } else {
+        seconds.text('00');
+        minutes.text('25');
+        startButton.attr('disabled', false);
+        isOnBreak = false;
+      }
       return;
     }
     if(secondsTextAsNumber === 0) {
@@ -63,20 +82,20 @@
     } else {
       var decreasedSecondsAsNumberByOne = secondsTextAsNumber - 1;
       var padSecondsTextAsNumber = pad(decreasedSecondsAsNumberByOne);
-      seconds.text(padSecondsTextAsNumber);
+      seconds.text(padSecondsTextAsNumber); //this writes inside of the html
     }
 
-    //var secondsValue = parseInt(seconds.text());
+    // var secondsValue = parseInt(seconds.text());
     //
-    //seconds.text(pad(secondsValue - 1));
-   }
+    // seconds.text(pad(secondsValue - 1));
+  }
 
   function pad(num){
     if(num < 10){
       //spit out the number with a leading zero
       return "0" + num;
     } else {
-      //spit out the original number
+      // spit out the original number
       return num;
     }
   }
